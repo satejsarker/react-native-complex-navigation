@@ -7,7 +7,7 @@ import { Text, View,StyleSheet,StatusBar,Button } from 'react-native'
         const { params } = navigation.state;
     
         return {
-          title: params ? params.otherParam : 'Home Screen',
+          title: params ? params.otherParam : 'Home',
           /* These values are used instead of the shared configuration! */
           headerStyle: {
             backgroundColor: navigationOptions.headerTintColor || '#00',
@@ -25,7 +25,9 @@ import { Text, View,StyleSheet,StatusBar,Button } from 'react-native'
       <StatusBar  backgroundColor="green" barStyle='dark-content'/>
      
         <Text style={styles.txt}  > Home Screen  </Text>
-        <Button title="Home "/>
+        <Button title="Other  "  onPress={()=>{
+          this.props.navigation.push('Other')
+        }}/>
       </View>
     )
   }

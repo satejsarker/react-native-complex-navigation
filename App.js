@@ -15,6 +15,7 @@ import SignupScreen from './screens/SignupSreen/SignupScreen';
 import DashBord from './screens/DashBord/DashBord';
 import Music from './screens/Music/Music';
 import { Icon } from 'react-native-elements'
+import Other from './screens/other/Other';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -28,11 +29,63 @@ class App extends Component {
 
   }
 };
-const bottomTabNavigator = createBottomTabNavigator({
-  Home: {
-    screen: Home
+const HomeStackNavigation=createStackNavigator({
+  Home:{screen:Home,
+  navigationOptions:({navigation})=>{
+    return {
+      headerTitle:'Home',
+      headerLeft:
+      <Icon
+      iconStyle={{padding:10}}
+      onPress={()=>navigation.openDrawer()}
+name='menu'
+color='#00aced' />
+    }
+  }
   },
-  Music: Music,
+  Other:{
+    screen:Other
+  }
+},{
+  defaultNavigationOptions: {
+
+    headerStyle: {
+
+    }
+}}
+);
+
+
+const musicStack=createStackNavigator({
+  Music:{screen:Music,
+  navigationOptions:({navigation})=>{
+    return {
+      headerTitle:'Music',
+      headerLeft:
+      <Icon
+      iconStyle={{padding:10}}
+      onPress={()=>navigation.openDrawer()}
+name='menu'
+color='#00aced' />
+    }
+  }
+  },
+  Other:{
+    screen:Other
+  }
+},{
+  defaultNavigationOptions: {
+gesturesEnabled:false,
+    headerStyle: {
+     
+    }
+}}
+)
+
+const bottomTabNavigator = createBottomTabNavigator({
+  Home:{ 
+   screen: HomeStackNavigation},
+  Music: musicStack,
   Signup :{
     screen:SignupScreen,
     otherParam:"satej"
@@ -75,6 +128,7 @@ const DashbordStackNavigation=createStackNavigator({
 },{
    defaultNavigationOptions:({navigation})=>{
      return{
+       header:null,
        headerLeft:(
 
         <Icon
